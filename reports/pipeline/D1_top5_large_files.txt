@@ -1,5 +1,0 @@
-120K	reports
-12K	doc
-8.0K	tools
-4.0K	tmp
-4.0K	tests

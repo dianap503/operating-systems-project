@@ -1,6 +1,0 @@
-    PID CMD
-      2 [kthreadd]
-      3 [pool_workqueue_release]
-      4 [kworker/R-rcu_gp]
-      5 [kworker/R-sync_wq]
-      6 [kworker/R-kvfree_rcu_reclaim]

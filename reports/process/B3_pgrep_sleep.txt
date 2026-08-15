@@ -1,2 +1,0 @@
-    PID TTY          TIME CMD
-   5555 pts/0    00:00:00 sleep
