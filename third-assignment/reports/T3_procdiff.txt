@@ -1,0 +1,2 @@
+APPEARED (New process): PID 912 ()
+DISAPPEARED (Processes ended): PID 685 ()
