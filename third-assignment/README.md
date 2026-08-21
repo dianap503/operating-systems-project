@@ -1,4 +1,4 @@
-# Project Deep Dive: Concurrent File Indexer, Process Snapshot, and Binary Diff Engine
+# Concurrent File Indexer, Process Snapshot, and Binary Diff Engine
 
 ## Executive Summary
 This project is a systems-level utility suite built entirely in **C** on Linux, designed to capture point-in-time state snapshots of both the filesystem and running system processes under high-concurrency SPMD (Single Program, Multiple Data) execution. The architecture emphasizes low-level binary serialization, robust inter-process synchronization using advisory record locking, and custom differential analysis algorithms to report changes between snapshots.
