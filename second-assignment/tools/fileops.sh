@@ -11,10 +11,10 @@ log_execution() {
     DURATION=$((END_TIME_MS - START_TIME_MS))
     EXIT_CODE=$1
     {
-        echo "Subcomanda executata: $SUBCOMMAND"
+        echo "Executed subcommand: $SUBCOMMAND"
         echo "Timestamp start: $START_TIME_MS"
         echo "Timestamp end: $END_TIME_MS"
-        echo "Durata totala: ${DURATION}s"
+        echo "Total duration: ${DURATION}s"
         echo "Exit code: $EXIT_CODE"
     } > "$LOG_FILE"
 }
@@ -27,10 +27,10 @@ do_init() {
     done
     
     if ! command -v gcc &> /dev/null; then
-        echo "EROARE: gcc nu a fost gasit!"
+        echo "ERROR: gcc was not found!"
         return 1
     fi
-    echo "Structura creata si gcc verificat."
+    echo "Structured created and gcc verified."
     return 0
 }
 
@@ -51,7 +51,7 @@ do_build() {
                 local obj="tmp/obj/${filename%.c}.o"
                 
                 if [[ ! -f "$obj" || "$item" -nt "$obj" ]]; then
-                    echo "Compilare incrementala: $item"
+                    echo "Incremental compilation: $item"
                     gcc $CFLAGS -c "$item" -o "$obj" || return 1
                 fi
             fi
@@ -62,7 +62,7 @@ do_build() {
     find "$SRC_DIR" -name "main_*.c" | while read -r main_file; do
         local base=$(basename "$main_file" .c)
         local exe_name=${base#main_}
-        echo "Link-editare executabil: bin/$exe_name"
+        echo "Link-edit executable: bin/$exe_name"
         gcc $CFLAGS tmp/obj/*.o -o "bin/$exe_name"
     done
     return 0
@@ -78,13 +78,13 @@ do_run() {
     if [[ -x "$exe" ]]; then
         ./"$exe" "$@"
     else
-        echo "Eroare: Executabilul $exe nu exista sau nu e executabil."
+        echo "ERROR: The executable $exe does not exit or is not executable."
         return 1
     fi
 }
 
 do_clean() {
-    echo "Curatare artefacte build..."
+    echo "Cleaning build artifacts..."
     rm -rf tmp/obj/* bin/*
 }
 
@@ -98,7 +98,7 @@ do_test() {
         [[ "$test_script" == *"$0"* ]] && continue
         
         chmod +x "$test_script"
-        echo "Rulare test: $test_script"
+        echo "Run test: $test_script"
         if ./"$test_script"; then
             echo "$(basename "$test_script") PASS" >> "$report"
         else
@@ -120,7 +120,7 @@ case "$SUBCOMMAND" in
     run)   do_run "$@"; RES=$? ;;
     clean) do_clean "$@"; RES=$? ;;
     test)  do_test "$@"; RES=$? ;;
-    *)     echo "Comanda invalida!"; RES=1 ;;
+    *)     echo "Invalid command!"; RES=1 ;;
 esac
 
 log_execution $RES
